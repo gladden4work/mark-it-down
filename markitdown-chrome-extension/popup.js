@@ -78,11 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Try to use the async converter with metadata
                     if (typeof HtmlConverter.convertWithMetadata === 'function') {
-                        showStatus('Generating AI description...', 'loading');
+                        showStatus('Processing images with AI...', 'loading');
+                        console.log('MarkItDown Popup: Starting conversion with LLM processing');
                         markdown += await HtmlConverter.convertWithMetadata(html, {
                             includeCoverImage: true,
-                            includeAIDescription: true
+                            includeAIDescription: true,
+                            processInlineImages: true,
+                            timeoutMs: 120000  // 2 minutes total for reasoning models
                         });
+                        console.log('MarkItDown Popup: Conversion completed');
                     } else {
                         // Fallback to basic conversion
                         const title = result.result.title;
