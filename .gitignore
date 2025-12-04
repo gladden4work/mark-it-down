@@ -1,5 +1,8 @@
 .vscode
 
+# Chrome Extension config (contains API keys)
+markitdown-chrome-extension/config.js
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

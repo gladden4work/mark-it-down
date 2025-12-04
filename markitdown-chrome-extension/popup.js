@@ -67,15 +67,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (result && result.result) {
-                    const { html, title, url } = result.result;
+                    const { html, url } = result.result;
+                    
+                    // Show progress for AI description
+                    showStatus('Extracting cover image...', 'loading');
+                    
+                    // Use the enhanced converter with metadata extraction
                     let markdown = '';
-
-                    // Add title and URL header
-                    if (title) markdown += `# ${title}\n\n`;
-                    markdown += `> Source: ${url}\n\n---\n\n`;
-
-                    // Convert HTML
-                    markdown += HtmlConverter.convertClean(html);
+                    markdown += `> Source: ${url}\n\n`;
+                    
+                    // Try to use the async converter with metadata
+                    if (typeof HtmlConverter.convertWithMetadata === 'function') {
+                        showStatus('Generating AI description...', 'loading');
+                        markdown += await HtmlConverter.convertWithMetadata(html, {
+                            includeCoverImage: true,
+                            includeAIDescription: true
+                        });
+                    } else {
+                        // Fallback to basic conversion
+                        const title = result.result.title;
+                        if (title) markdown = `# ${title}\n\n` + markdown;
+                        markdown += '---\n\n';
+                        markdown += HtmlConverter.convertClean(html);
+                    }
 
                     output.value = markdown;
                     showStatus('Page converted!', 'success');
