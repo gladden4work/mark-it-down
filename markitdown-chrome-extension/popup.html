@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkItDown</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 MarkItDown</h1>
+            <p class="subtitle">Convert to Markdown</p>
+        </header>
+
+        <div class="actions">
+            <button id="convertPage" class="btn btn-primary">
+                <span class="icon">🌐</span>
+                Convert This Page
+            </button>
+            <button id="convertSelection" class="btn btn-secondary">
+                <span class="icon">✂️</span>
+                Convert Selection
+            </button>
+        </div>
+
+        <div class="output-section">
+            <div class="output-header">
+                <label for="output">Markdown Output</label>
+                <button id="copyBtn" class="btn-icon" title="Copy to clipboard">
+                    📋
+                </button>
+            </div>
+            <textarea id="output" readonly placeholder="Click a button above to convert content..."></textarea>
+        </div>
+
+        <div class="status" id="status"></div>
+    </div>
+
+    <script src="vendor/turndown.js"></script>
+    <script src="converters/html-converter.js"></script>
+    <script src="converters/youtube-converter.js"></script>
+    <script src="converters/data-converter.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>
